@@ -284,6 +284,7 @@ else
     git push -f origin "$new" || exit 1
 fi
 
+# this is a bit of a hack, but we need to update the major tag to point to the latest commit
 git fetch --tags
 tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
 tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
