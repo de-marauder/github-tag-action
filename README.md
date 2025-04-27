@@ -11,15 +11,13 @@ A GitHub Action to automatically bump and tag master, on merge, with the latest 
 
 ## Usage
 
-_Note: We don't recommend using the @master version unless you're happy to test the latest changes._
-
 ```yaml
-# example 1: on push to master
+# example 1: on push to main
 name: Bump version
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -32,7 +30,7 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: de-marauder/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: de-marauder/github-tag-action@v0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: false
@@ -46,7 +44,7 @@ on:
     types:
       - closed
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -61,7 +59,7 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: de-marauder/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: de-marauder/github-tag-action@v0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
@@ -90,7 +88,7 @@ _NOTE: set the fetch-depth for `actions/checkout@v2` or newer to be sure you ret
 - **GIT_API_TAGGING** _(optional)_ - Set if using git cli or git api calls for tag push operations. Possible values are `false` and `true` (default).
 - **INITIAL_VERSION** _(optional)_ - Set initial version before bump. Default `0.0.0`. MAKE SURE NOT TO USE vX.X.X here if combined WITH_V
 - **TAG_CONTEXT** _(optional)_ - Set the context of the previous tag. Possible values are `repo` (default) or `branch`.
-- **PRERELEASE** _(optional)_ - Define if workflow runs in prerelease mode, `false` by default. Note this will be overwritten if using complex suffix release branches. Use it with checkout `ref: ${{ github.sha }}` for consistency see [issue 266](https://github.com/de-marauder/github-tag-action/issues/266).
+- **PRERELEASE** _(optional)_ - Define if workflow runs in prerelease mode, `false` by default. Note this will be overwritten if using complex suffix release branches. Use it with checkout `ref: ${{ github.sha }}`.
 - **PRERELEASE_SUFFIX** _(optional)_ - Suffix for your prerelease versions, `beta` by default. Note this will only be used if a prerelease branch.
 - **VERBOSE** _(optional)_ - Print git logs. For some projects these logs may be very large. Possible values are `true` (default) and `false`.
 - **MAJOR_STRING_TOKEN** _(optional)_ - Change the default `#major` commit message string tag.
@@ -98,7 +96,7 @@ _NOTE: set the fetch-depth for `actions/checkout@v2` or newer to be sure you ret
 - **PATCH_STRING_TOKEN** _(optional)_ - Change the default `#patch` commit message string tag.
 - **NONE_STRING_TOKEN** _(optional)_ - Change the default `#none` commit message string tag.
 - **BRANCH_HISTORY** _(optional)_ - Set the history of the branch for finding `#bumps`. Possible values `last`, `full` and `compare` defaults to `compare`.
-  - `full`: attempt to show all history, does not work on rebase and squash due missing HEAD [should be deprecated in v2 is breaking many workflows]
+  - `full`: attempt to show all history, does not work on rebase and squash due to missing HEAD
   - `last`: show the single last commit
   - `compare`: show all commits since previous repo tag number
 - **FORCE_WITHOUT_CHANGES** _(optional)_ - Enforce the brach creation even if there are no changes from the tag.
@@ -126,11 +124,11 @@ If `#none` is contained in the merge commit message, it will skip bumping regard
 
 - Add this action to your repo
 - Commit some changes
-- Either push to master or open a PR
+- Either push to main or open a PR
 - On push (or merge), the action will:
   - Get latest tag
   - Bump tag with minor version unless the merge commit message contains `#major` or `#patch`
   - Pushes tag to GitHub
-  - If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag. see [issue 266](https://github.com/de-marauder/github-tag-action/issues/266).
+  - If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag.
   - If triggered on any other branch, a prerelease will be generated, depending on the bump, starting with `*-<PRERELEASE_SUFFIX>.1`, `*-<PRERELEASE_SUFFIX>.2`, ...
   - To create a repository release you need another workflow like [automatic-releases](https://github.com/marketplace/actions/automatic-releases).
