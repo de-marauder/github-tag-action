@@ -283,15 +283,3 @@ else
     # use git cli to push
     git push -f origin "$new" || exit 1
 fi
-
-# this is a bit of a hack, but we need to update the major tag to point to the latest commit
-git fetch --tags
-tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
-tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
-[[ "$tag" =~ ^([0-9]+) ]] # use ^(v[0-9]+) for vX
-major=${BASH_REMATCH[1]}
-# update major tag
-git tag -f "$major"
-git push -f origin "$major"
-git tag -f "v$major"
-git push -f origin "v$major"
