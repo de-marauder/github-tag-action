@@ -31,6 +31,8 @@ jobs:
           VERBOSE: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_API_TAGGING: false # uses git cli
+          WITH_V: true
+          PRERELEASE: true
 
       - name: automatic-release
         uses: softprops/action-gh-release@v2.2.2
