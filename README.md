@@ -6,11 +6,8 @@ A GitHub Action to automatically bump and tag master, on merge, with the latest 
 [![Stable Version](https://img.shields.io/github/v/tag/de-marauder/github-tag-action)](https://img.shields.io/github/v/tag/de-marauder/github-tag-action)
 [![Latest Release](https://img.shields.io/github/v/release/de-marauder/github-tag-action?color=%233D9970)](https://img.shields.io/github/v/release/de-marauder/github-tag-action?color=%233D9970)
 
-> Medium Post: [Creating A GitHub Action to Tag Commits](https://itnext.io/creating-a-github-action-to-tag-commits-2722f1560dec)
-
 [<img src="https://miro.medium.com/max/1200/1*_4Ex1uUhL93a3bHyC-TgPg.png" width="400">](https://itnext.io/creating-a-github-action-to-tag-commits-2722f1560dec)
 
-> 📣 [This project is seeking maintainers!](https://github.com/de-marauder/github-tag-action/issues/238) 📣
 
 ## Usage
 
@@ -137,21 +134,3 @@ If `#none` is contained in the merge commit message, it will skip bumping regard
   - If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag. see [issue 266](https://github.com/de-marauder/github-tag-action/issues/266).
   - If triggered on any other branch, a prerelease will be generated, depending on the bump, starting with `*-<PRERELEASE_SUFFIX>.1`, `*-<PRERELEASE_SUFFIX>.2`, ...
   - To create a repository release you need another workflow like [automatic-releases](https://github.com/marketplace/actions/automatic-releases).
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
-
-## Credits
-
-- [fsaintjacques/semver-tool](https://github.com/fsaintjacques/semver-tool)
-- [Contributors to this project](https://github.com/de-marauder/github-tag-action/graphs/contributors)
-
-## Projects using github-tag-action
-
-Examples of projects using github-tag-action for reference.
-
-- another/github-tag-action (uses itself to create tags)
-- [de-marauder/json-tree-service](https://github.com/de-marauder/json-tree-service)
-
-  > Access JSON structure with HTTP path parameters as keys/indices to the JSON.
